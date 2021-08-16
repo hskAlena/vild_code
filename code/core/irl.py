@@ -49,8 +49,8 @@ class IRL():
             ## Hard code for now. 
             robo_data = 10
             env_name = args.env_name + "_reach"
-            filename = "../imitation_data/TRAJ_h5/%s/%s_chosen.txt" % (env_name, env_name)
-            traj_path = "../imitation_data/TRAJ_h5/%s" % (env_name) ## We load demonstrations from pre-extracted h5py files to reduce processing time. Otherwise, we need to load the original demonstrations ( from hdf5 in RoboTurkPilot) and then clip them in every experiment trials.
+            filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, env_name)
+            traj_path = "../imitation_data/TRAJ_robo/%s" % (env_name) ## We load demonstrations from pre-extracted h5py files to reduce processing time. Otherwise, we need to load the original demonstrations ( from hdf5 in RoboTurkPilot) and then clip them in every experiment trials.
 
             demo_idx = -1
             sort_list = np.arange(0, robo_data)   # demos sort/chosen 

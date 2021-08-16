@@ -20,6 +20,25 @@ Experiments were run with Python 3.6.9 and these packages:
 * code/core/ac.py - Script implementing classes of RL algorithms (TRPO, PPO, SAC).
 * code/plot_il.py - Script for plotting experimental results in the paper. Directory code/results_IL contains log files of experimental results reported in the paper.
 
+## Code examples
+`cd code; python vild_main.py --il_method vild --env_id 21 --rl_method sac --vild_loss_type BCE`
+
+
+## About RoboTurk Dataset
+demo len = 1144
+f['data']['demo_9'].keys() = ['gripper_actuations', 'joint_velocities', 'left_dpos', 'left_dquat', 'right_dpos', 'right_dquat', 'states']
+f['data'].attrs.keys() =['date', 'env', 'repository_version', 'time']
+f['data']['demo_9']['states'].shape = (824, 47)
+f['data']['demo_9']['left_dpos'].shape = (0,)
+f['data']['demo_9']['right_dpos'].shape = (824, 3)
+f['data']['demo_9']['right_dquat'].shape = (824, 4)
+f['data']['demo_9']['left_dquat'].shape = (0,)
+f['data']['demo_9']['joint_velocities'].shape = (824, 7)
+f['data']['demo_9']['gripper_actuations'].shape = (824, 1)
+f['data']['demo_9'].attrs['model_file'] = 'model_9.xml'
+f['data'].attrs['env'] = 'SawyerNutAssemblyRound'
+
+
 ## Important arguments of these scripts
 * To set IL algorithms, set argument --il_method *algorithm_name*.
 *algorithm_name* can be: vild, irl (maximum entropy irl), gail, airl, vail, infogail.

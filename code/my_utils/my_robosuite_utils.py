@@ -25,7 +25,7 @@ def make_robosuite_env(args):
     env_name = args.env_name + "_reach"
     # total_traj = len(os.listdir(demo_path))
     demo_list = []
-    filename = "../imitation_data/TRAJ_h5/%s/%s_chosen.txt" % (env_name, env_name)
+    filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, env_name)
     demo_idx = -1
 
     sort_list = np.arange(0, 10)   # 10 demo. 
