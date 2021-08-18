@@ -2,3 +2,6 @@ imitation_data/
 code/__pycache__/
 code/results_IL/
 code/results_RL/
+code/core/__pycache__/
+code/core_nn/__pycache__/
+code/my_utils/__pycache__/
