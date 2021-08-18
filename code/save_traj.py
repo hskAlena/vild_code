@@ -82,7 +82,7 @@ def save_traj_from_pt(args):
     exp_name = "%s-%s_s%d" % (method_name, hypers, args.seed)
 
     """ Set path for trajectory files """
-    traj_path = "../imitation_data/TRAJ_h5/%s/" % (args.env_name)
+    traj_path = "../imitation_data/TRAJ_robo/%s/" % (args.env_name)
     pathlib.Path(traj_path).mkdir(parents=True, exist_ok=True) 
     print("%s trajectory will be saved at %s" % (colored(method_name, p_color), colored(traj_path, p_color)))
         
@@ -111,7 +111,7 @@ def save_traj_from_pt(args):
     """ Load policy """
     load_step = args.demo_iter
     print(load_step) 
-    model_path = "../imitation_data/RL_models/%s/%s-%s" % (args.env_name, args.env_name, exp_name) 
+    model_path = "results_RL/TRPO_models/%s/%s-%s" % (args.env_name, args.env_name, exp_name) 
     model_filename = model_path + ("_policy_T%d.pt" % (load_step))    
     policy_updater.load_model(model_filename)
     policy_updater.policy_to_device(device_cpu) 

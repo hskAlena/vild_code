@@ -42,7 +42,7 @@ if __name__ == "__main__":
     }
     demo_name = demo_dict[args.env_id]
     
-    demo_path = "%s/Documents/Git/imitation_data/RoboTurkPilot/%s" % (pathlib.Path.home(), demo_name)
+    demo_path = "%s/projects/vild_code/imitation_data/RoboTurkPilot/%s" % (pathlib.Path.home(), demo_name)
     
     hdf5_path = os.path.join(demo_path, "demo.hdf5")
     f = h5py.File(hdf5_path, "r")
@@ -98,9 +98,9 @@ if __name__ == "__main__":
     demo_list = []
     step_list = []
     if args.robo_task != "full":
-        filename = "%s/Documents/Git/imitation_data/TRAJ_robo/%s_%s/%s_%s_chosen.txt" % (pathlib.Path.home(), env_name, args.robo_task, env_name, args.robo_task)
+        filename = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s_%s/%s_%s_chosen.txt" % (pathlib.Path.home(), env_name, args.robo_task, env_name, args.robo_task)
     else:
-        filename = "%s/Documents/Git/imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (pathlib.Path.home(), env_name, env_name)
+        filename = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (pathlib.Path.home(), env_name, env_name)
     demo_idx = -1
     step_idx = -1
     with open(filename, 'r') as ff:

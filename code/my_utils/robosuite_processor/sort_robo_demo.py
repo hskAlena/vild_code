@@ -45,7 +45,7 @@ def sort():
     args.env_name = env_dict[args.env_id]
     
     traj_name = "traj_roboturk"
-    demo_path = "%s/Documents/Git/imitation_data/TRAJ_robo/%s" % (pathlib.Path.home(), args.env_name)
+    demo_path = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s" % (pathlib.Path.home(), args.env_name)
     if args.robo_task != "full":
         demo_path += "_%s" % args.robo_task 
     

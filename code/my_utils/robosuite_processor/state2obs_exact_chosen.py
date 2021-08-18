@@ -56,13 +56,13 @@ if __name__ == "__main__":
     demo_name = demo_dict[args.env_id]
     
     ## for loading hdf5 
-    demo_path = "%s/Documents/Git/imitation_data/RoboTurkPilot/%s" % (pathlib.Path.home(), demo_name)
+    demo_path = "%s/projects/vild_code/imitation_data/RoboTurkPilot/%s" % (pathlib.Path.home(), demo_name)
     hdf5_path = os.path.join(demo_path, "demo.hdf5")
     f = h5py.File(hdf5_path, "r")
     env_name = f["data"].attrs["env"]
 
     ## for saving by pickle 
-    traj_path = "%s/Documents/Git/imitation_data/TRAJ_robo/%s" % (pathlib.Path.home(), env_name) 
+    traj_path = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s" % (pathlib.Path.home(), env_name) 
     traj_path += "_%s" % args.robo_task 
     
     # pathlib.Path("%s/Documents/Git/imitation_data/TRAJ_robo/%s" % (pathlib.Path.home(), env_name) ).mkdir(parents=True, exist_ok=True) 

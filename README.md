@@ -38,6 +38,11 @@ f['data']['demo_9']['gripper_actuations'].shape = (824, 1)
 f['data']['demo_9'].attrs['model_file'] = 'model_9.xml'
 f['data'].attrs['env'] = 'SawyerNutAssemblyRound'
 
+generate .p file with state2obs_exact_chosen.py
+sort and generate .txt file with sort_robo_demo.py
+check quality of demo playback_chosen_demo.py
+vild_main.py imitation/RL_models 
+save_traj.py -> .h5
 
 ## Important arguments of these scripts
 * To set IL algorithms, set argument --il_method *algorithm_name*.
