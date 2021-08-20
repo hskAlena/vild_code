@@ -22,10 +22,13 @@ def make_robosuite_env(args):
 
     hd5_demo_path = "../imitation_data/RoboTurkPilot/%s" % (demo_name)
 
-    env_name = args.env_name + "_reach"
+    env_name = args.env_name +"_"+args.robo_task #+ "_reach"
     # total_traj = len(os.listdir(demo_path))
     demo_list = []
-    filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, env_name)
+    if args.robo_task == "full":
+        filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, args.env_name)
+    else:
+        filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, env_name)
     demo_idx = -1
 
     sort_list = np.arange(0, 10)   # 10 demo. 
@@ -55,7 +58,7 @@ def make_robosuite_env(args):
         need_xml=True,
         sampling_schemes=["uniform_first", "random"], # initial state sampler. Default from the repo is uniform + random, but initilizing states at the middle of trajectory is possible only in simulations.. 
         scheme_ratios=[0.9, 0.1],
-        robo_task = "reach",
+        robo_task = args.robo_task, #"reach",
     )
     return env 
 

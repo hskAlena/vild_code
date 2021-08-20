@@ -46,8 +46,8 @@ def sort():
     
     traj_name = "traj_roboturk"
     demo_path = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s" % (pathlib.Path.home(), args.env_name)
-    if args.robo_task != "full":
-        demo_path += "_%s" % args.robo_task 
+    #if args.robo_task != "full":
+    demo_path += "_%s" % args.robo_task 
     
     real_traj_tensor_list = []  # legnth equal to num_worker
     real_mask_tensor_list = []  # legnth equal to num_worker
@@ -60,13 +60,18 @@ def sort():
     total_size = 0  ## number of (s,a) pairs 
 
     total_traj = len(os.listdir(demo_path)) - 1
+    print("Original total traj :", total_traj)
     for demo_i in range(1, total_traj + 1):
         if args.robo_task != "full":
             traj_filename = demo_path + ("/%s_%s_demo%d.p" % (args.env_name, args.robo_task, demo_i))
         else:
             traj_filename = demo_path + ("/%s_demo%d.p" % (args.env_name, demo_i))
 
-        real_traj_list, real_mask_list, real_reward_list = pickle.load(open(traj_filename, "rb"))
+        try:
+            real_traj_list, real_mask_list, real_reward_list = pickle.load(open(traj_filename, "rb"))
+        except:
+            total_traj -=1
+            continue
         ## The loaded list is actually a 2 dimensional lsit (list of list) which contains trajecctories of the same demonstrator.
         ## For roboturk dataset, (we assume) 1 demonstrator collect 1 trajectory, so  the first dim is size 1.
         ## So we have [0] indexing below 
@@ -93,15 +98,20 @@ def sort():
     # filename = demo_path + ('../../%s/%s_sort.txt' % (args.env_name, args.env_name))
     
     if args.robo_task != "full":
-        filename = demo_path + ('/%s_%s_sort.txt' % (args.env_name, args.robo_task))
+        filename = demo_path + ('/%s_%s_chosen.txt' % (args.env_name, args.robo_task))
     else:
-        filename = demo_path + ('/%s_sort.txt' % (args.env_name))
+        filename = demo_path + ('/%s_chosen.txt' % (args.env_name))
     
     open(filename, 'w').close()
     with open(filename, 'a') as f:
+        print("Total traj: ", total_traj)
         for i in range(0, total_traj):
-            result_text = "demo %4d, step %4d, return %f, return_ratio %f" % (sort_index[i] + 1, traj_len_list[sort_index[i]], return_list[sort_index[i]], rwd_ratio[sort_index[i]]) 
-            print(result_text, file=f) 
+            try:
+                result_text = "demo %4d, step %4d, return %f, return_ratio %f" % (sort_index[i] + 1, traj_len_list[sort_index[i]], return_list[sort_index[i]], rwd_ratio[sort_index[i]]) 
+                print(result_text, file=f)
+            except:
+                print("ERROR i :", i)
+                print("ERROR sort index:", len(sort_index))
 
 if __name__ == "__main__":
     sort()

@@ -66,7 +66,8 @@ if __name__ == "__main__":
     traj_path += "_%s" % args.robo_task 
     
     # pathlib.Path("%s/Documents/Git/imitation_data/TRAJ_robo/%s" % (pathlib.Path.home(), env_name) ).mkdir(parents=True, exist_ok=True) 
-    pathlib.Path(traj_path).mkdir(parents=True, exist_ok=True) 
+    if not pathlib.Path(traj_path).is_dir():
+        pathlib.Path(traj_path).mkdir(parents=True, exist_ok=True) 
 
     do_render = args.render 
     use_shape = 1
@@ -94,7 +95,10 @@ if __name__ == "__main__":
         # ep = demos[ep_i]  ## The demos list variable does not sort 1, 2, 3, ... Instead it sorts 1, 10, 100, ...
         ep = "demo_%d" % ep_i 
 
-        model_file = f["data/{}".format(ep)].attrs["model_file"]
+        try:
+            model_file = f["data/{}".format(ep)].attrs["model_file"]
+        except:
+            continue
         model_path = os.path.join(demo_path, "models", model_file)
         with open(model_path, "r") as model_f:
             model_xml = model_f.read()

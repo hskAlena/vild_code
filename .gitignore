@@ -1,4 +1,5 @@
-imitation_data/
+imitation_data/RoboTurkPilot/
+imitation_data/TRAJ_robo/
 code/__pycache__/
 code/results_IL/
 code/results_RL/

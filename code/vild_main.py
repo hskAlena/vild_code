@@ -53,7 +53,7 @@ def main(args):
         env = make_robosuite_env(args)
         env_test = make_robosuite_env(args)
         # the sampler use functions from python's random, so the seed are already set.
-        env_name = args.env_name + "_reach"
+        env_name = args.env_name +"_"+ args.robo_task #"_reach"
 
     else: 
         env = gym.make(env_name)     
@@ -65,7 +65,9 @@ def main(args):
     is_disc_action = args.env_discrete
     action_dim = (0 if is_disc_action else env.action_space.shape[0])
     if args.env_robosuite:
-        action_dim = action_dim - 1     # we disable gripper for reaching 
+        if args.robo_task == "reach":
+            action_dim = action_dim - 1     # we disable gripper for reaching
+
     if is_disc_action:
         a_bound = 1
         action_num = env.action_space.n 

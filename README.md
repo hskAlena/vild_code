@@ -33,7 +33,7 @@ f['data']['demo_9']['left_dpos'].shape = (0,)
 f['data']['demo_9']['right_dpos'].shape = (824, 3)
 f['data']['demo_9']['right_dquat'].shape = (824, 4)
 f['data']['demo_9']['left_dquat'].shape = (0,)
-f['data']['demo_9']['joint_velocities'].shape = (824, 7)
+f['data']['demo_9']['joint_velocities'].shape = (824, 7) == expert_actions
 f['data']['demo_9']['gripper_actuations'].shape = (824, 1)
 f['data']['demo_9'].attrs['model_file'] = 'model_9.xml'
 f['data'].attrs['env'] = 'SawyerNutAssemblyRound'

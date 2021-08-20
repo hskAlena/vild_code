@@ -48,8 +48,11 @@ class IRL():
         else:
             ## Hard code for now. 
             robo_data = 10
-            env_name = args.env_name + "_reach"
-            filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, env_name)
+            env_name = args.env_name +"_"+ args.robo_task #+ "_reach"
+            if args.robo_task == "full":
+                filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, args.env_name)
+            else:
+                filename = "../imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (env_name, env_name)
             traj_path = "../imitation_data/TRAJ_robo/%s" % (env_name) ## We load demonstrations from pre-extracted h5py files to reduce processing time. Otherwise, we need to load the original demonstrations ( from hdf5 in RoboTurkPilot) and then clip them in every experiment trials.
 
             demo_idx = -1
@@ -75,6 +78,7 @@ class IRL():
                 traj_filename = traj_path + ("/%s_TRAJ-N%d_%s%0.2f" % (args.env_name, args.demo_file_size, args.noise_type, k_spec))
             else:
                 traj_filename = traj_path + ("/%s_TRAJ-ID%d" % (env_name, k_spec))
+
 
 
             if args.traj_deterministic:

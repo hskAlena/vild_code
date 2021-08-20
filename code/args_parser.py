@@ -89,6 +89,7 @@ def args_parser():
     ## testing for robosuitereacher and rendering.
     parser.add_argument('--test_step_list', nargs='+', default=[None], type=int, help='list of test iteration')
     parser.add_argument('--test_save', type=int, default=1, help='save test results into numpy files.')
+    parser.add_argument('--robo_task', action="store", default="reach", choices=["reach", "grasp", "full"], help='task')
 
     ## plotting.
     parser.add_argument('--plot_save', type=int, default=0, help='save plot or not.')

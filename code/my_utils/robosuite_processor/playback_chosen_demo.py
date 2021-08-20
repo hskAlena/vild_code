@@ -100,7 +100,7 @@ if __name__ == "__main__":
     if args.robo_task != "full":
         filename = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s_%s/%s_%s_chosen.txt" % (pathlib.Path.home(), env_name, args.robo_task, env_name, args.robo_task)
     else:
-        filename = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s/%s_chosen.txt" % (pathlib.Path.home(), env_name, env_name)
+        filename = "%s/projects/vild_code/imitation_data/TRAJ_robo/%s_%s/%s_chosen.txt" % (pathlib.Path.home(), env_name, args.robo_task, env_name)
     demo_idx = -1
     step_idx = -1
     with open(filename, 'r') as ff:
@@ -135,7 +135,10 @@ if __name__ == "__main__":
         print("Epi %d" % (ep_i))
 
         # read the model xml, using the metadata stored in the attribute for this episode
-        model_file = f["data/{}".format(ep)].attrs["model_file"]
+        try:
+            model_file = f["data/{}".format(ep)].attrs["model_file"]
+        except:
+            continue
         model_path = os.path.join(demo_path, "models", model_file)
         with open(model_path, "r") as model_f:
             model_xml = model_f.read()
