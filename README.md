@@ -26,23 +26,25 @@ Experiments were run with Python 3.6.9 and these packages:
 
 ## About RoboTurk Dataset
 demo len = 1144
-f['data']['demo_9'].keys() = ['gripper_actuations', 'joint_velocities', 'left_dpos', 'left_dquat', 'right_dpos', 'right_dquat', 'states']
-f['data'].attrs.keys() =['date', 'env', 'repository_version', 'time']
-f['data']['demo_9']['states'].shape = (824, 47)
-f['data']['demo_9']['left_dpos'].shape = (0,)
-f['data']['demo_9']['right_dpos'].shape = (824, 3)
-f['data']['demo_9']['right_dquat'].shape = (824, 4)
-f['data']['demo_9']['left_dquat'].shape = (0,)
-f['data']['demo_9']['joint_velocities'].shape = (824, 7) == expert_actions
-f['data']['demo_9']['gripper_actuations'].shape = (824, 1)
-f['data']['demo_9'].attrs['model_file'] = 'model_9.xml'
-f['data'].attrs['env'] = 'SawyerNutAssemblyRound'
+* f['data']['demo_9'].keys() = ['gripper_actuations', 'joint_velocities', 'left_dpos', 'left_dquat', 'right_dpos', 'right_dquat', 'states']
+* f['data'].attrs.keys() =['date', 'env', 'repository_version', 'time']
+* f['data']['demo_9']['states'].shape = (824, 47)
+* f['data']['demo_9']['left_dpos'].shape = (0,)
+* f['data']['demo_9']['right_dpos'].shape = (824, 3)
+* f['data']['demo_9']['right_dquat'].shape = (824, 4)
+* f['data']['demo_9']['left_dquat'].shape = (0,)
+* f['data']['demo_9']['joint_velocities'].shape = (824, 7) == expert_actions
+* f['data']['demo_9']['gripper_actuations'].shape = (824, 1)
+* f['data']['demo_9'].attrs['model_file'] = 'model_9.xml'
+* f['data'].attrs['env'] = 'SawyerNutAssemblyRound'
 
-generate .p file with state2obs_exact_chosen.py
-sort and generate .txt file with sort_robo_demo.py
-check quality of demo playback_chosen_demo.py
-vild_main.py imitation/RL_models 
-save_traj.py -> .h5
+
+* generate .p file with state2obs_exact_chosen.py
+* sort and generate .txt file with sort_robo_demo.py
+* check quality of demo playback_chosen_demo.py
+* vild_main.py imitation/RL_models 
+* imitation_data/data_process.py -> .h5
+* test_model.py .txt -> .npy
 
 ## Important arguments of these scripts
 * To set IL algorithms, set argument --il_method *algorithm_name*.

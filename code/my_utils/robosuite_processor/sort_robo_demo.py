@@ -98,9 +98,9 @@ def sort():
     # filename = demo_path + ('../../%s/%s_sort.txt' % (args.env_name, args.env_name))
     
     if args.robo_task != "full":
-        filename = demo_path + ('/%s_%s_chosen.txt' % (args.env_name, args.robo_task))
+        filename = demo_path + ('/%s_%s_sort.txt' % (args.env_name, args.robo_task))
     else:
-        filename = demo_path + ('/%s_chosen.txt' % (args.env_name))
+        filename = demo_path + ('/%s_sort.txt' % (args.env_name))
     
     open(filename, 'w').close()
     with open(filename, 'a') as f:

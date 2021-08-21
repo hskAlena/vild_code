@@ -184,10 +184,11 @@ def plot(args):
         args.gp_lambda = 0
 
     if args.env_id == 21:
-        plot_methods = ["vild_per0", "vild_per2", "gail", "infogail_mean", "infogail_best", "meirl", "airl", "vail"]    # for paper 
+        # plot_methods = ["vild_per0", "vild_per2", "gail", "infogail_mean", "infogail_best", "meirl", "airl", "vail"]    # for paper 
         # plot_methods = ["vild_per2", "gail", "meirl", "airl", "vail"]   # for slide
+        plot_methods = ["vild_per2",  "infogail_mean", "infogail_best"]  # hs_test
         args.vild_loss_type = "bce"
-        env_name += "_reach" 
+        env_name += "_"+args.robo_task #"_reach" 
         args.hidden_size = (100, 100)
         args.activation = "relu"
         load_robo = 1
@@ -217,7 +218,7 @@ def plot(args):
         hypers = rl_hypers_parser(args) + "_" + irl_hypers_parser(args)      
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
-            if load_robo:
+            if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
@@ -258,7 +259,7 @@ def plot(args):
         hypers = rl_hypers_parser(args) + "_" + irl_hypers_parser(args)       
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
-            if load_robo:
+            if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
@@ -295,7 +296,7 @@ def plot(args):
         method_name = args.il_method.upper() + "_" + args.rl_method.upper() 
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
-            if load_robo:
+            if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
@@ -329,7 +330,7 @@ def plot(args):
         method_name = args.il_method.upper() + "_" + args.rl_method.upper() 
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
-            if load_robo:
+            if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
@@ -363,7 +364,7 @@ def plot(args):
         method_name = args.il_method.upper() + "_" + args.rl_method.upper() 
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
-            if load_robo:
+            if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
@@ -397,7 +398,7 @@ def plot(args):
         method_name = args.il_method.upper() + "_" + args.rl_method.upper() 
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
-            if load_robo:
+            if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
@@ -434,7 +435,7 @@ def plot(args):
 
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
-            if load_robo:
+            if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)

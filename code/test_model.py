@@ -46,7 +46,7 @@ def main(args):
         args.t_max = 500 
         env = make_robosuite_env(args)
         # the sampler use functions from python's random, so the seed are already set.
-        env_name = args.env_name + "_reach"
+        env_name = args.env_name + "_"+args.robo_task #"_reach"
     else: 
         env = gym.make(env_name)     
         env.seed(args.seed)  
@@ -54,7 +54,7 @@ def main(args):
     state_dim = env.observation_space.shape[0]
     is_disc_action = args.env_discrete
     action_dim = (0 if is_disc_action else env.action_space.shape[0])
-    if args.env_robosuite:
+    if args.env_robosuite and args.robo_task == "reach":
         action_dim = action_dim - 1     # we disable gripper for reaching 
     if is_disc_action:
         a_bound = 1
@@ -226,7 +226,7 @@ def main(args):
         if args.test_save:
             # save the array
             test_list = np.asarray(test_list) 
-            test_result_path = "./results_%s/test/%s" % (method_type, env_name)
+            test_result_path = "./results_%s/hstest/%s" % (method_type, env_name)
             pathlib.Path(test_result_path).mkdir(parents=True, exist_ok=True) 
             np.save( ("%s/%s-%s_e%d_test.npy" % (test_result_path, env_name, exp_name, test_episode)), test_list)
         
