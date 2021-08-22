@@ -59,6 +59,7 @@ def make_robosuite_env(args):
         sampling_schemes=["uniform_first", "random"], # initial state sampler. Default from the repo is uniform + random, but initilizing states at the middle of trajectory is possible only in simulations.. 
         scheme_ratios=[0.9, 0.1],
         robo_task = args.robo_task, #"reach",
+        seed = args.seed
     )
     return env 
 
@@ -81,7 +82,8 @@ class RobosuiteReacherWrapper(Wrapper):
         open_loop_initial_window_width=25,
         open_loop_window_increment=25,
         keys=None,
-        robo_task="reach"
+        robo_task="reach",
+        seed = 1
     ):
         """
         Initializes a wrapper that provides support for resetting the environment
@@ -145,6 +147,7 @@ class RobosuiteReacherWrapper(Wrapper):
         self.action_space = spaces.Box(low=low, high=high)
 
         self.robo_task = robo_task 
+        self.seed = seed
 
         self.demo_path = demo_path
         hdf5_path = os.path.join(self.demo_path, "demo.hdf5")
@@ -232,9 +235,16 @@ class RobosuiteReacherWrapper(Wrapper):
         if self.robo_task == "reach":
             r_reach, _, _, _ = self.env.staged_rewards()
             reward = r_reach * 10   #otherwise the reward is too small given the current float printout format. 
-        elif reward != 1:
+        elif reward != 1 and self.seed!=1:
             r_reach, r_grasp, r_lift, r_hover = self.env.staged_rewards()
             reward += r_reach+r_grasp+r_lift+r_hover
+            if self.seed >= 3:
+                reward -= r_hover
+            if self.seed >=4:
+                reward -= r_lift
+            if self.seed >=5:
+                reward -= r_reach
+            
         
             
         return self._flatten_obs(ob_dict), reward, done, info
