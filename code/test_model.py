@@ -187,6 +187,8 @@ def main(args):
             latent_code = None ## only for infogail 
 
             test_episode = 100
+            if args.il_method == "infogail":
+                test_episode = 10
             return_list = []
             for i_episode in range(0, test_episode):
                 state = env.reset()         
@@ -228,7 +230,7 @@ def main(args):
             test_list = np.asarray(test_list) 
             test_result_path = "./results_%s/hstest/%s" % (method_type, env_name)
             pathlib.Path(test_result_path).mkdir(parents=True, exist_ok=True) 
-            np.save( ("%s/%s-%s_e%d_test.npy" % (test_result_path, env_name, exp_name, test_episode)), test_list)
+            np.save( ("%s/%s-%s_e%d_c%d_test.npy" % (test_result_path, env_name, exp_name, test_episode, info_i)), test_list)
         
 if __name__ == "__main__":
     args = args_parser()    

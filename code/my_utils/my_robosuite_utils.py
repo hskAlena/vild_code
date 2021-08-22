@@ -232,6 +232,10 @@ class RobosuiteReacherWrapper(Wrapper):
         if self.robo_task == "reach":
             r_reach, _, _, _ = self.env.staged_rewards()
             reward = r_reach * 10   #otherwise the reward is too small given the current float printout format. 
+        elif reward != 1:
+            r_reach, r_grasp, r_lift, r_hover = self.env.staged_rewards()
+            reward += r_reach+r_grasp+r_lift+r_hover
+        
             
         return self._flatten_obs(ob_dict), reward, done, info
 

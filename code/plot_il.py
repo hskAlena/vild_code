@@ -44,8 +44,11 @@ def running_mean(x, N):
 def load(filename, limit=1000, load_robo=0):
     if load_robo:
         try:
+            if args.il_method == "infogail":
+                R_test_avg = np.load(filename + "_e10_test.npy")
+            else:
         # if 1:
-            R_test_avg = np.load(filename + "_e100_test.npy") 
+                R_test_avg = np.load(filename + "_e100_test.npy") 
             return R_test_avg
         except:
             return np.reshape(np.array([-999]), (-1, 1))
@@ -157,7 +160,7 @@ def plot(args):
         traj_name = "traj10"
         m_return_list = None 
 
-    seed_list = [1, 2, 3, 4, 5]
+    seed_list = [1] #[1, 2, 3, 4, 5]
     seed_num = len(seed_list)
     print(seed_list)
     load_robo = 0 
@@ -220,6 +223,8 @@ def plot(args):
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
+            elif load_robo:
+                filename = "./results_IL/hstest/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
 
@@ -261,6 +266,8 @@ def plot(args):
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
+            elif load_robo:
+                filename = "./results_IL/hstest/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
 
@@ -298,6 +305,8 @@ def plot(args):
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
+            elif load_robo:
+                filename = "./results_IL/hstest/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
 
@@ -332,6 +341,8 @@ def plot(args):
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
+            elif load_robo:
+                filename = "./results_IL/hstest/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
 
@@ -366,6 +377,8 @@ def plot(args):
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
+            elif load_robo:
+                filename = "./results_IL/hstest/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
 
@@ -400,6 +413,8 @@ def plot(args):
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
+            elif load_robo:
+                filename = "./results_IL/hstest/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
 
@@ -437,6 +452,8 @@ def plot(args):
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
                 filename = "./results_IL/test/%s/%s-%s" % (env_name, env_name, exp_name)
+            elif load_robo:
+                filename = "./results_IL/hstest/%s/%s-%s" % (env_name, env_name, exp_name)
             else:
                 filename = "./results_IL/%s/%s/%s-%s" % (method_name, env_name, env_name, exp_name)
 

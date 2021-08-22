@@ -137,6 +137,9 @@ if __name__ == "__main__":
             done = (t == (len(states) - 1))
             if args.robo_task == "full":
                 reward = env.reward() 
+                if reward != 1:
+                    r_reach, r_grasp, r_lift, r_hover = env.staged_rewards()
+                    reward += r_reach+r_grasp+r_lift+r_hover
 
             elif args.robo_task == "reach":
                 r_reach, r_grasp, r_lift, r_hover = env.staged_rewards()
