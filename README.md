@@ -8,8 +8,10 @@ Experiments were run with Python 3.6.9 and these packages:
 * numpy == 1.14.0
 * scipy == 1.0.1
 * gym == 0.10.5
-* mujoco-py == 1.50.1
+* mujoco-py == 1.50.1.68
 * robosuite == 0.1.0
+* colorama, termcolor, 
+* h5py == 2.10.0
 
 ## Important scripts
 * code/vild_main.py - Script to run experiments with RL-based IL algorithms. 
