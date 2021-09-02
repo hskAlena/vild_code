@@ -53,7 +53,7 @@ def main(args):
         env = make_robosuite_env(args)
         env_test = make_robosuite_env(args)
         # the sampler use functions from python's random, so the seed are already set.
-        env_name = args.env_name +"_"+ args.robo_task #"_reach"
+        env_name = args.env_name + "_reach"
 
     else: 
         env = gym.make(env_name)     
@@ -64,10 +64,8 @@ def main(args):
     state_dim = env.observation_space.shape[0]
     is_disc_action = args.env_discrete
     action_dim = (0 if is_disc_action else env.action_space.shape[0])
-    if args.env_robosuite:
-        if args.robo_task == "reach":
-            action_dim = action_dim - 1     # we disable gripper for reaching
-
+    if args.env_robosuite and args.robo_task=='reach':
+        action_dim = action_dim -1   # we disable gripper for reaching 
     if is_disc_action:
         a_bound = 1
         action_num = env.action_space.n 
@@ -231,6 +229,7 @@ def main(args):
     state = env.reset()
     done = 1 
     """ The actual learning loop"""
+    flag = 0
     for total_step in range(0, args.max_step + 1):
 
         """ Save the learned policy model """
@@ -271,7 +270,12 @@ def main(args):
 
         state_var = torch.FloatTensor(state)
         if latent_code is not None:
-            state_var = torch.cat((state_var, latent_code_onehot), 0)  
+            state_var = torch.cat((state_var, latent_code_onehot), 0) 
+        
+        rawobs = env._get_observation()
+        if env._check_contact() and rawobs['RoundNut0_to_eef_pos'][-1]<0.001:
+            flag =1
+            
 
         """ take env step """
         if total_step <= args.random_action and update_type == "off_policy":    # collect random actions first for off policy methods
@@ -281,9 +285,15 @@ def main(args):
 
         if args.il_method == "vild":    # Add noise from Sigma_k to action (noise_t = sqrt(Sigma_k)) 
             action_u = action + args.noise_t * np.random.normal( np.zeros(action.shape), np.ones(action.shape) )
-            next_state, reward, done, _ = env.step(action_u)
+            #print(state.shape)  44            
+            if flag ==1:
+                action_u[-1] = 0            
+            next_state, reward, done, _ = env.step(action_u)            
         else:
+            if flag ==1:
+                action[-1] = 0
             next_state, reward, done, _ = env.step(action)
+            
 
         if step + 1 == args.t_max:
             done = 1

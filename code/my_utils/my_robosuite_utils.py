@@ -48,6 +48,7 @@ def make_robosuite_env(args):
         has_renderer=args.render,
         ignore_done=False,  
         use_camera_obs=False,
+        use_object_obs=True,
         gripper_visualization=False,
         reward_shaping=False,   # 
         control_freq=100,
@@ -76,6 +77,7 @@ class RobosuiteReacherWrapper(Wrapper):
         need_xml=False,
         # num_traj=-1,
         demo_list=[None],
+        use_object_obs=True,
         sampling_schemes=["uniform", "random"],
         scheme_ratios=[0.9, 0.1],
         open_loop_increment_freq=100,
@@ -133,6 +135,7 @@ class RobosuiteReacherWrapper(Wrapper):
 
         ## Gym part 
         if keys is None:
+            
             assert self.env.use_object_obs, "Object observations need to be enabled."
             keys = ["robot-state", "object-state"]
         self.keys = keys
@@ -238,11 +241,11 @@ class RobosuiteReacherWrapper(Wrapper):
         elif reward != 1 and self.seed!=1:
             r_reach, r_grasp, r_lift, r_hover = self.env.staged_rewards()
             reward += r_reach+r_grasp+r_lift+r_hover
-            if self.seed >= 3:
+            if self.seed == 3:
                 reward -= r_hover
-            if self.seed >=4:
+            if self.seed ==4:
                 reward -= r_lift
-            if self.seed >=5:
+            if self.seed ==5:
                 reward -= r_reach
             
         

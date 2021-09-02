@@ -6,8 +6,8 @@ from core_nn.nn_vild import *
 class VILD(IRL):
     def __init__(self, state_dim, action_dim, args, policy_updater):
         super().__init__(state_dim, action_dim, args)
-        self.mc_num = args.mc_num
-        self.symmetric = args.symmetric
+        self.mc_num = args.mc_num  ## end??
+        self.symmetric = args.symmetric  ## no??
         self.noise_t = args.noise_t 
         self.per_alpha = args.per_alpha 
         self.worker_model = args.worker_model

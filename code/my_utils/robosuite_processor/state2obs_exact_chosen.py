@@ -76,6 +76,8 @@ if __name__ == "__main__":
         env_name,
         has_offscreen_renderer=False,  # not needed since not using pixel obs
         has_renderer=do_render,
+        use_object_obs=True,
+        #use_indicator_object=True,
         ignore_done=True,
         use_camera_obs=False,
         gripper_visualization=False,
@@ -84,13 +86,13 @@ if __name__ == "__main__":
     )
 
     # env = IKWrapper(env)
-    env = GymWrapper(env)
+    env = GymWrapper(env, keys = ["robot-state","object-state"])
 
     # list of all demonstrations episodes
     demos = list(f["data"].keys())
 
     """ we will save 1 file for 1 demo trajectory. """
-    for ep_i in range(1, len(demos) + 1):
+    for ep_i in range(1, 2):  #len(demos) + 1):
 
         # ep = demos[ep_i]  ## The demos list variable does not sort 1, 2, 3, ... Instead it sorts 1, 10, 100, ...
         ep = "demo_%d" % ep_i 
@@ -131,7 +133,10 @@ if __name__ == "__main__":
             env.sim.forward()
 
             ## These lines get obs and action.
-            obs = env._flatten_obs(env._get_observation())     # This is the current state, not next state.
+            rawobs = env._get_observation()
+            #print(rawobs.keys())
+            obs = env._flatten_obs(rawobs, verbose=True)     # This is the current state, not next state.
+            print(obs.shape)
             action = np.concatenate((joint_velocities[t], gripper_actuations[t]))
 
             done = (t == (len(states) - 1))
