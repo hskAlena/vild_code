@@ -6,3 +6,4 @@ code/results_RL/
 code/core/__pycache__/
 code/core_nn/__pycache__/
 code/my_utils/__pycache__/
+*.zip

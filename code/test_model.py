@@ -169,7 +169,7 @@ def main(args):
 
         test_list = []
         for test_step in test_step_list:
-            test_seed = 1   ## 
+            test_seed = args.seed #1   ## 
             if use_gpu:
                 torch.cuda.manual_seed(test_seed)
                 torch.backends.cudnn.deterministic = True
