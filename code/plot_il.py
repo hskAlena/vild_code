@@ -160,7 +160,8 @@ def plot(args):
         traj_name = "traj10"
         m_return_list = None 
 
-    seed_list = [1] #[1, 2, 3, 4, 5]
+    seed_list = [2,3,4] #[1, 2, 3, 4, 5]
+    seed_forloop = range(1,len(seed_list))
     seed_num = len(seed_list)
     print(seed_list)
     load_robo = 0 
@@ -218,7 +219,8 @@ def plot(args):
         if args.vild_loss_type.lower() != "linear": 
             method_name += "_" + args.vild_loss_type.upper()
             args.clip_discriminator = 0
-        hypers = rl_hypers_parser(args) + "_" + irl_hypers_parser(args)      
+        hypers = rl_hypers_parser(args) + "_" + irl_hypers_parser(args)   
+        j = 0
         for seed in seed_list:
             exp_name = "%s-%s-%s_s%d" % (traj_name, method_name, hypers, seed)
             if load_robo and args.env_id == 21 and args.robo_task=="reach":
@@ -236,12 +238,15 @@ def plot(args):
                 print("cannot load %s" % exp_name) 
             else:
                 load_iter = R_test_avg_i.shape[0]
+                print(R_test_avg_i.shape)
                 if load_iter < max_len:
-                    max_len = load_iter 
-                    for i in range(0, seed-1):
+                    max_len = load_iter                    
+                    for i in range(0, seed_forloop[j]-1):  #seed
+                        print(len(R_test_avg))
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
+            j += 1
         if cat:
             R_test_avg = np.concatenate(R_test_avg, axis=1) # array [iter, test_episode * seed]
             R_test_all += [R_test_avg]
@@ -281,7 +286,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -318,7 +323,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -354,7 +359,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -390,7 +395,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0,len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -426,7 +431,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -465,7 +470,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -756,7 +761,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed 
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -784,7 +789,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]
@@ -812,7 +817,7 @@ def plot(args):
                 load_iter = R_test_avg_i.shape[0]
                 if load_iter < max_len:
                     max_len = load_iter 
-                    for i in range(0, seed-1):
+                    for i in range(0, len(seed_list)-1):  #seed
                         R_test_avg[i] = R_test_avg[i][0:max_len, :]
                 R_test_avg_i = R_test_avg_i[0:max_len, :]
                 R_test_avg += [R_test_avg_i]

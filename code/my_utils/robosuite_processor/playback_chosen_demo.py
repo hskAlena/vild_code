@@ -122,6 +122,7 @@ if __name__ == "__main__":
     
     ep_count = 0
     for ep_count in range(0, len(demo_list)):
+        input("PRESS ENTER")
         
         if ep_count > 9:
             break   # use only 10 demonstrations in experiments. 
@@ -155,6 +156,10 @@ if __name__ == "__main__":
         time.sleep(15)
 
         states = f["data/{}/states".format(ep)].value
+        #left_dpos
+        joints = f["data/{}/gripper_actuations".format(ep)].value
+        lefts = f["data/{}/left_dpos".format(ep)].value
+        rights = f["data/{}/right_dpos".format(ep)].value
                     
         count = 0
         ret = 0
@@ -164,7 +169,32 @@ if __name__ == "__main__":
             state = states[step]
             env.sim.set_state_from_flattened(state)
             env.sim.forward()
-
+            rawobs = env._get_observation()
+            
+            joint = joints[step]
+            if lefts.shape[0] == 0:
+                right = rights[step]
+            elif rights.shape[0] == 0:
+                right = lefts[step]
+            #right = rights[step]
+            
+            if env._check_contact():
+                #input("PRESS ENTER")
+                print("CONTACT!!!", joint)
+                print("STATE - gripper", rawobs['gripper_qpos'])
+                print("STATE - eef", rawobs['eef_pos'])
+                #print("STATE - square", rawobs['SquareNut0_pos'])
+                #print("STATE - squareEEF", rawobs['SquareNut0_to_eef_pos'])
+                print("STATE - round", rawobs['RoundNut0_pos'])
+                print("STATE - roundEEF", rawobs['RoundNut0_to_eef_pos'])
+                #print("LEFT ", left)
+                print("Right", right)
+                print("\n\n")
+            else:
+                pass
+                #print("Not Contact", joint)
+                ## If contact, then reward > 0.028 
+                 
             ## Because a longer demonstration gets higher rewards even though it is worse, we add -1 as cost in each time-step.
             # done = 0
             # reward = 0
